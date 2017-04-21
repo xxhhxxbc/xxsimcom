@@ -149,7 +149,8 @@ void pri()
 
 int main()
 {
-    printf("Please input code:\n");
+    freopen("c:\\st\\code\\input.txt","r",stdin);
+    printf("Result:\n");
     p=0;
     line=1;
     sign=-3;
