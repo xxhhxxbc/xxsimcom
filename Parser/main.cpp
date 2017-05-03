@@ -1,14 +1,45 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void E(); //E->TX;
-void X(); //X->+TX|-TX|e
-void T(); //T->FY
-void Y(); //Y->*FY|/FY|e
-void F(); //F->(E)|id|num
-
-char s[100];
+void E();  //E->TE_;
+void E_(); //E_->+TE_|-TE_|e
+void T();  //T->FT_
+void T_(); //T_->*FT_|/FT_|e
+void F();  //F->(E)|id|num
+char s[100],ch;
 int q;
+void sca()
+{
+    ch=s[q++];
+    while(ch==' '||ch=='\t')
+        ch=s[q++];
+    if((ch>='a'&&ch<='z')||(ch>='A'&&ch<='Z'))
+    {
+        while((ch>='a'&&ch<='z')||(ch>='A'&&ch<='Z')||(ch>='0'&&ch<='9'))
+            ch=s[q++];
+        q--;
+    }
+    else
+    {
+        if(ch>='0'&&ch<='9')
+        {
+            while(ch>='0'&&ch<='9')
+                ch=s[q++];
+            if(ch=='.')
+            {
+                ch=s[q++];
+                while(ch>='0'&&ch<='9')
+                    ch=s[q++];
+            }
+            q--;
+        }
+        else
+        {
+            printf("WA\n");
+            exit(0);
+        }
+    }
+}
 
 int main()
 {
@@ -24,44 +55,44 @@ int main()
 void E()
 {
     T();
-    X();
+    E_();
 }
 
-void X()
+void E_()
 {
     if(s[q]=='+')
     {
         q++;
         T();
-        X();
+        E_();
     }
     if(s[q]=='-')
     {
         q++;
         T();
-        X();
+        E_();
     }
 }
 
 void T()
 {
     F();
-    Y();
+    T_();
 }
 
-void Y()
+void T_()
 {
     if(s[q]=='*')
     {
         q++;
         F();
-        Y();
+        T_();
     }
     if(s[q]=='/')
     {
         q++;
         F();
-        Y();
+        T_();
     }
 }
 
@@ -80,18 +111,5 @@ void F()
         }
     }
     else
-    {
-        if(s[q]=='i'&&s[q+1]=='d')
-            q+=2;
-        else
-        {
-            if(s[q]=='n'&&s[q+1]=='u'&&s[q+2]=='m')
-                q+=3;
-            else
-            {
-                printf("WA\n");
-                exit(0);
-            }
-        }
-    }
+        sca();
 }

@@ -9,8 +9,9 @@ using namespace std;
 char *gjz[10]= {"begin","end","if","then","while","do","const","var","call","procedure"};
 char sfhjf[10]= {'+','-','*','.','=','(',')',',','.',';'};
 char s[1010],tem[100];
-char ch;
-int line,p,sum,t,sign;
+char ch=' ';
+int line,p,t,sign;
+double sum,dian;
 
 void sca()
 {
@@ -46,6 +47,17 @@ void sca()
             {
                 sum=sum*10+ch-'0';
                 ch=s[p++];
+            }
+            if(ch=='.')
+            {
+                dian=0.1;
+                ch=s[p++];
+                while(ch>='0'&&ch<='9')
+                {
+                    sum+=(ch-'0')*dian;
+                    dian*=0.1;
+                    ch=s[p++];
+                }
             }
             p--;
             sign=12;
@@ -142,7 +154,7 @@ void pri()
     if(sign==11)
         printf("( %d\t, %s\t, 标识符)\n",sign,tem);
     if(sign==12)
-        printf("( %d\t, %d\t, 整型常数)\n",sign,sum);
+        printf("( %d\t, %.2lf\t, 常数)\n",sign,sum);
     if(sign>12&&sign<30)
         printf("( %d\t, %s\t, 算符和界符)\n",sign,tem);
 }
