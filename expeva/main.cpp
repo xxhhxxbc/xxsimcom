@@ -101,6 +101,7 @@ Result cal(double a,char c,double b)
     return re;
 }
 
+double poi;
 Result calcu(char s[])
 {
     Result re;
@@ -129,6 +130,16 @@ Result calcu(char s[])
             {
                 num*=10;
                 num+=s[i++]-'0';
+            }
+            if(s[i]=='.')
+            {
+                i++;
+                poi=0.1;
+                while(s[i]>='0'&&s[i]<='9')
+                {
+                    num+=(s[i++]-'0')*poi;
+                    poi*=0.1;
+                }
             }
             nu.push(num);
         }
@@ -207,6 +218,7 @@ int main()
         }
         else
             printf("WA: ().\n");
+        printf("\n");
     }
     return 0;
 }
