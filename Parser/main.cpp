@@ -8,6 +8,38 @@ void T_(); //T_->*FT_|/FT_|e
 void F();  //F->(E)|id|num
 char s[100],ch;
 int q;
+
+bool check(char s[])
+{
+    stack<char> flag;
+    int f1=0,f2=0;
+    while(!flag.empty())
+        flag.pop();
+
+    for(int i=0; i<strlen(s); i++)
+    {
+        if(s[i]=='(')
+        {
+            if(f1+1==i)
+                return false;
+            f2=i;
+            flag.push('(');
+        }
+        if(s[i]==')')
+        {
+            if(flag.empty())
+                return false;
+            if(f2+1==i)
+                return false;
+            f1=i;
+            flag.pop();
+        }
+    }
+    if(flag.empty())
+        return true;
+    return false;
+}
+
 void sca()
 {
     ch=s[q++];
@@ -47,8 +79,13 @@ int main()
     q=0;
     printf("Please input string:\n");
     scanf("%s",s);
-    E();
-    printf("AC\n");
+    if(check(s))
+    {
+        E();
+        printf("AC\n");
+    }
+    else
+        printf("WA: ().\n");
     return 0;
 }
 
